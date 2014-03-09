@@ -1,5 +1,3 @@
-
-
 # スワップ領域作成
 # 参考:http://qiita.com/naoya@github/items/2059e3755962e907315e
 bash 'create swapfile' do
@@ -31,7 +29,7 @@ end
 
 
 # yum関係
-%w{gcc make wget telnet readline-devel ncurses-devel gdbm-devel openssl-devel zlib-devel libyaml-devel httpd vim}.each do |p|
+%w{gcc make wget telnet readline-devel ncurses-devel gdbm-devel openssl-devel zlib-devel libyaml-devel httpd vim ruby ruby-devel rdoc rubygems}.each do |p|
 	package p do
 		action :install
 	end
@@ -49,3 +47,11 @@ template "httpd.conf" do
 	mode 0644
 	notifies :restart, 'service[httpd]'
 end
+
+# yumファイルの加工
+file '/etc/yum.conf' do
+  _file = Chef::Util::FileEdit.new(path)
+  _file.search_file_replace_line('exclude=kernel', "#exclude=kernel\n")
+  content _file.send(:contents).join
+  action :create
+end.run_action(:create)

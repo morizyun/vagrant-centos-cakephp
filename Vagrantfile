@@ -13,14 +13,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # cakephpを使うために必要
   config.vm.synced_folder './', '/vagrant', mount_options: ['dmode=777', 'fmode=666']
 
+  config.berkshelf.enabled = true
   config.omnibus.chef_version = :latest
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = './site-cookbooks'
     chef.add_recipe 'base'
-    chef.add_recipe 'mysql'
+    #chef.add_recipe 'mysql'
     chef.add_recipe 'php'
     chef.add_recipe 'cakephp'
+
+    chef.run_list = %w(mysql::client mysql::server)
 
     chef.json = {
       httpd: {
@@ -31,11 +34,39 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         timezone: 'Asia/Tokyo'
       },
       mysql: {
-        password: ''
+        server_root_password: 'cakepass',
+        server_repl_password: 'cakepass',
+        server_debian_password: 'cakepass',
+        bind_address: '127.0.0.1',
+        remove_test_database: true,
+        remove_anonymous_users: true,
       },
       cakephp: {
         root: '/vagrant/app'
       },
     }
   end
+
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = './site-cookbooks'
+    chef.run_list = %w(base mysql::client mysql::server php database cakephp)
+
+    chef.json = {
+        httpd: {
+            port: 80,
+            docroot: '/vagrant/app'
+        },
+        php: {
+            timezone: 'Asia/Tokyo'
+        },
+        mysql: {
+            server_root_password: 'cakepass',
+            server_repl_password: 'cakepass',
+            server_debian_password: 'cakepass',
+            bind_address: '127.0.0.1',
+            remove_test_database: true,
+            remove_anonymous_users: true,
+        },
+    }
+    end
 end
