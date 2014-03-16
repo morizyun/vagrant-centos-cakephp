@@ -29,7 +29,7 @@ end
 
 
 # yum関係
-%w{gcc make wget telnet readline-devel ncurses-devel gdbm-devel openssl-devel zlib-devel libyaml-devel httpd vim ruby ruby-devel rdoc rubygems}.each do |p|
+%w{gcc make wget telnet readline-devel ncurses-devel gdbm-devel openssl-devel zlib-devel httpd vim ruby ruby-devel rdoc rubygems git}.each do |p|
 	package p do
 		action :install
 	end
