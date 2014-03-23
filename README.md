@@ -1,6 +1,6 @@
-# Vagrantfile with CentOS 6.5/PHP 5.3/MySQL/Apache/CakePHP 2.4.6
+# Vagrantfile with CentOS 6.5/MySQL/Apache/phpMyAdmin/PHP 5.3/CakePHP 2.4.6
 
-_Description: Vagrantfile with CentOS 6.5/PHP 5.3/MySQL/Apache/CakePHP 2.4.6
+_Description: Vagrantfile with CentOS 6.5/Apache/MySQL/phpMyAdmin/PHP 5.3/CakePHP 2.4.6
 
 ## Project Setup
 
