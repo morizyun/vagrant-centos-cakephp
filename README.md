@@ -18,12 +18,18 @@ _Description: Vagrantfile with CentOS 6.5/PHP 5.3/MySQL/Apache/CakePHP 2.4.6
 
 7. `bundle exec berks install --path site-cookbooks`
 
-8. `vagrant up`
+8. If you want to change host name, please change `config.vm.hostname = 'cakephpdev'` in Vagrantfile
 
-9. Browsing `http://192.168.33.10/`
+9. `vagrant up`
+
+10. setting hosts add `192.168.33.10 cakephpdev` (if you use Mac, the location of hosts file is `/etc/hosts`)
+
+11. Browsing `http://cakephpdev`
 
 ## Basic information
 
 1. Sync Folder(Sever - Local) : `app/`
 
 2. MySQL ROOT PASS : `cakepass`
+
+3. phpMyAdimin URL : `http://cakephpdev/phpMyAdmin` (user: `root`, pass: `cakepass`)

@@ -35,6 +35,12 @@ end
 	end
 end
 
+%w{phpMyAdmin php-mysql php-mcrypt}.each do |p|
+  package p do
+    action :install
+    options '--enablerepo=epel'
+  end
+end
 
 # httpd設定
 service "httpd" do
@@ -46,6 +52,13 @@ template "httpd.conf" do
 	source "httpd.conf.erb"
 	mode 0644
 	notifies :restart, 'service[httpd]'
+end
+
+template "httpd.conf" do
+  path "/etc/httpd/conf.d/phpMyAdmin.conf"
+  source "phpMyAdmin.conf.erb"
+  mode 0777
+  notifies :restart, 'service[httpd]'
 end
 
 # yumファイルの加工

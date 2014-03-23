@@ -15,6 +15,9 @@
     "cakephp": {
       "path": "./site-cookbooks/cakephp"
     },
+    "yum-epel": {
+      "locked_version": "0.3.4"
+    },
     "openssl": {
       "locked_version": "1.1.0"
     },
@@ -41,6 +44,9 @@
     },
     "xfs": {
       "locked_version": "1.1.0"
+    },
+    "yum": {
+      "locked_version": "3.1.4"
     }
   }
 }

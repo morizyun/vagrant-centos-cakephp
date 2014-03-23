@@ -1001,10 +1001,9 @@ BrowserMatch "^Dreamweaver-WebDAV-SCM1" redirect-carefully
 # The first VirtualHost section is used for requests without a known
 # server name.
 #
-#<VirtualHost *:80>
-#    ServerAdmin webmaster@dummy-host.example.com
-#    DocumentRoot /www/docs/dummy-host.example.com
-#    ServerName dummy-host.example.com
-#    ErrorLog logs/dummy-host.example.com-error_log
-#    CustomLog logs/dummy-host.example.com-access_log common
-#</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot <%= node[:httpd][:docroot] %>
+    ServerName <%= node[:httpd][:hostname] %>
+    ErrorLog logs/<%= node[:httpd][:hostname] %>-error_log
+    CustomLog logs/<%= node[:httpd][:hostname] %>-access_log common
+</VirtualHost>

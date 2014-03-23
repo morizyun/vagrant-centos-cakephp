@@ -1,5 +1,5 @@
 # phpインストール
-%w{php php-devel php-mbstring php-mysql}.each do |p|
+%w{php php-devel php-mbstring}.each do |p|
   package p do
     action :install
   end

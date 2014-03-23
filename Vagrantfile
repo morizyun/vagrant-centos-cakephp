@@ -13,6 +13,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # cakephpを使うために必要
   config.vm.synced_folder './', '/vagrant', mount_options: ['dmode=777', 'fmode=666']
 
+  # ホスト名
+  config.vm.hostname = 'cakephp.dev'
+
   config.omnibus.chef_version = :latest
 
   config.vm.provision :chef_solo do |chef|
@@ -48,12 +51,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = './site-cookbooks'
-    chef.run_list = %w(base mysql::client mysql::server php database cakephp)
+    chef.run_list = %w(yum-epel base mysql::client mysql::server php database cakephp)
 
     chef.json = {
         httpd: {
             port: 80,
-            docroot: '/vagrant/app'
+            docroot: '/vagrant/app',
+            hostname: 'cakephp.dev'
         },
         php: {
             timezone: 'Asia/Tokyo'
