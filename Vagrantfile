@@ -5,8 +5,11 @@
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'CentOS_6.5_x86_64'
-  config.vm.box_url = 'http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-x86_64-v20140110.box'
+  config.vm.box = 'CentOS_6.5_i386'
+  config.vm.box_url = 'http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140311.box'
+  # Intel(R) Virtualization Technologyを有効化しないとVMで使えないため、初心者に厳しいからコメントアウト
+  #config.vm.box = 'CentOS_6.5_x86_64'
+  #config.vm.box_url = 'http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-x86_64-v20140110.box'
 
   config.vm.network :private_network, ip: '192.168.33.10'
 
@@ -17,6 +20,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = 'cakephp.dev'
 
   config.omnibus.chef_version = :latest
+
+  #config.vm.provider :virtualbox do |vb|
+  #  vb.gui = true
+  #end
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = './site-cookbooks'

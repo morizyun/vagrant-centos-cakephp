@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 
 gem 'knife-solo'
-gem 'berkshelf'
+# windowsで動かすために無効化
+#gem 'berkshelf'
